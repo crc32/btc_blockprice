@@ -1,0 +1,27 @@
+[general]
+    tg_api_key      = "NULL"
+    mempool_url = "https://mempool.space"
+    block_height_api = "/api/block-height/"
+    block_info_api = "/api/block/"
+    block_tip_api = "/api/blocks/tip/height"
+    price_data_url = "https://api.bitcoincharts.com/v1/csv/"
+
+[bot_commands]
+    [bot_commands.block]
+    desc = "<block height> : Get the price details of a block"
+    detail = "TEST"
+    [bot_commands.sats]
+    desc = "<block height> : Get Sats/USD (Moscow time) of a block"
+    detail = "TEST"
+    [bot_commands.update]
+    desc = "Force an update of the bot data (not implemented yet)"
+    detail = "TEST"
+    [bot_commands.txprice]
+    desc = "<txid> : Get the price details of a transaction"
+    detail = "TEST"
+    [bot_commands.usd_block]
+    desc = "<usd_block> <usd>: Get the BTC value for a stated amount of USD at a specific block height"
+    detail = "TEST"
+    [bot_commands.btc_block]
+    desc = "<btc_block> <btc>: Get the USD value for a stated amount of BTC at a specific block height"
+    detail = "This will assume that an integer number of BTC is in sats, while a float is in BTC"
