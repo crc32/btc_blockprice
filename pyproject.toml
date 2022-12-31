@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "btc-blockprice"
+version = "0.1.0"
+description = ""
+authors = ["Colin Crossman <colin@distributedha.sh>"]
+readme = "README.md"
+packages = [{include = "btc_blockprice"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+python-telegram-bot = {version = "^20.0b0", allow-prereleases = true}
+indexed-bzip2 = "^1.4.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
