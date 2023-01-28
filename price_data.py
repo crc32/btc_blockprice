@@ -72,7 +72,7 @@ def calc_blocks(return_data: bool = False):
                             exhausted = True
                             break
                         if not current_block.seen:
-                            current_block.opn = last_close
+                            current_block.open = last_close
                             current_block.close = last_close
                             current_block.high = last_close
                             current_block.low = last_close
@@ -81,9 +81,14 @@ def calc_blocks(return_data: bool = False):
     # step back 10 blocks to ensure when we add more later there isn't a time-frame discrepancy
     print_price_data_to_csv(btc_timestamps[0:final_blockheight - 10], "test.csv")
 
+    # ensure that no blocks open price disagrees with prior block close price
+    #for i in range(1, len(btc_timestamps)):
+    #    if btc_timestamps[i].open != btc_timestamps[i - 1].close:
+    #        btc_timestamps[i].open = btc_timestamps[i - 1].close
+
     temp_btc_blockprice = {}
     for id, block in enumerate(btc_timestamps[0:final_blockheight - 10]):
-        if (block.block_height > 700000 and block.opn == 0.0): continue
+        if (block.block_height > 700000 and block.open == 0.0): continue
         temp_btc_blockprice[block.block_height] = block.as_dict
     pickle.dump(temp_btc_blockprice, bz2.BZ2File("btc_blockprice.pkl.bz2", "wb"))
 
@@ -151,8 +156,8 @@ if __name__ == '__main__':
     #asyncio.get_event_loop().run_until_complete(download_price_data())
     # print(asyncio.get_event_loop().run_until_complete(get_block_tip()))
     #asyncio.get_event_loop().run_until_complete(load_new_timestamps())
-    asyncio.get_event_loop().run_until_complete(download_price_data())
-    recompress()
+    #asyncio.get_event_loop().run_until_complete(download_price_data())
+    #recompress()
     calc_blocks(False)
 
     print(f"Time elapsed: {time.time() - start}")

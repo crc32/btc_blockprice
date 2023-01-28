@@ -74,7 +74,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 logging.getLogger("asyncssh").setLevel(logging.WARNING)
 logging.getLogger("_client.py").setLevel(logging.WARNING)
-logging.disable(logging.INFO)
+#logging.disable(logging.INFO)
 
 Bitcoin_blockprice = {}
 
@@ -173,13 +173,13 @@ async def usdatblock(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
         usd = float(context.args[1])
         logger.debug(f"Get BTC for {usd} block {block}.")
         response = _get_usdatblock(int(block), float(usd))
-        logger.debug(f"BTC for {usd} at block {block} is {response}.")
+        logger.debug(f"BTC for ${usd} at block {block} is {response}.")
         if response == "inf":
             await update.effective_message.reply_text(f"Infinite! (before ₿itcoin pricing data).\n")
         elif response == "nan":
             await update.effective_message.reply_text(_check_end(int(block))[1])
         else:
-            await update.effective_message.reply_text(f"${usd} at {block} was {response}.\n")
+            await update.effective_message.reply_text(f"${usd:,.2} at {block} was {response}.\n")
 
     except (IndexError, ValueError, KeyError) as e:
         # await update.effective_message.reply_text("Usage: /ip2mac <Full IP Address>")
@@ -192,16 +192,18 @@ async def btcatblock(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
     """Return the blockprice details for a specific block."""
     try:
         # args[0] should contain the time for the timer in seconds
-        block = context.args[0]
-        logger.debug(f"Get Sats/$ for block {block}.")
-        response = _get_satsusd(int(block))
-        logger.debug(f"Sats/$ for block {block} is {response}.")
+        block = int(context.args[0])
+        btc = float(context.args[1])
+        logger.debug(f"Get USD for {btc} at block {block}.")
+        response = _get_btcatblock(int(block), float(btc))
+
+        logger.debug(f"USD for {btc} btc at block {block} is {response}.")
         if response == float('inf'):
             await update.effective_message.reply_text(f"Infinite! 丰/$ (before ₿itcoin pricing data).\n")
         elif response == float('nan'):
             await update.effective_message.reply_text(_check_end(int(block))[1])
         else:
-            await update.effective_message.reply_text(f"{response:,.0f} 丰/$\n")
+            await update.effective_message.reply_text(f"{btc:,.2} at {block} was {response}.\n")
 
     except (IndexError, ValueError, KeyError) as e:
         # await update.effective_message.reply_text("Usage: /ip2mac <Full IP Address>")
