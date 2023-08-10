@@ -4,7 +4,7 @@
     block_height_api = "/api/block-height/"
     block_info_api = "/api/block/"
     block_tip_api = "/api/blocks/tip/height"
-    price_data_url = "https://api.bitcoincharts.com/v1/csv/"
+    price_data_url = "https://YOUR PRICE DATA/"
 
 [bot_commands]
     [bot_commands.block]
