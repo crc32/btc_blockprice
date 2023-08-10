@@ -93,7 +93,7 @@ def calc_blocks(return_data: bool = False):
     pickle.dump(temp_btc_blockprice, bz2.BZ2File("btc_blockprice.pkl.bz2", "wb"))
 
     if return_data:
-        return btc_blockprice
+        return temp_btc_blockprice
     else:
         return None
 
@@ -154,10 +154,10 @@ if __name__ == '__main__':
 
     # print(btc_blockprice[700000])
     #asyncio.get_event_loop().run_until_complete(download_price_data())
-    # print(asyncio.get_event_loop().run_until_complete(get_block_tip()))
-    #asyncio.get_event_loop().run_until_complete(load_new_timestamps())
-    #asyncio.get_event_loop().run_until_complete(download_price_data())
-    #recompress()
-    calc_blocks(False)
+    print(asyncio.get_event_loop().run_until_complete(get_block_tip()))
+    asyncio.get_event_loop().run_until_complete(load_new_timestamps())
+    asyncio.get_event_loop().run_until_complete(download_price_data())
+    recompress()
+    calc_blocks(True)
 
     print(f"Time elapsed: {time.time() - start}")
